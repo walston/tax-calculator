@@ -1,5 +1,8 @@
 // Define a function to calculate federal tax
 export const calculateFederalTax = (income: number): number => {
+  if (income < 0) {
+    return 0
+  }
   let tax = 0;
 
   for (let x = 0; x < taxBrackets.length; x++) {

@@ -35,7 +35,6 @@ const IncomeTaxFederal = () => {
               <Form.Label>Annual income</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="$45,000"
                 name="income"
                 value={formData.income}
                 onChange={handleInputChange}
@@ -45,7 +44,6 @@ const IncomeTaxFederal = () => {
               <Form.Label>Deductions</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="$14,600"
                 name="deductions"
                 value={formData.deductions}
                 onChange={handleInputChange}
@@ -60,6 +58,7 @@ const IncomeTaxFederal = () => {
                 type="radio"
                 id={`inline-radio-1`}
                 checked={true}
+                onChange={handleInputChange}
               />
               <Form.Check
                 inline
@@ -68,6 +67,7 @@ const IncomeTaxFederal = () => {
                 type="radio"
                 id={`inline-radio-2`}
                 disabled={true}
+                onChange={handleInputChange}
               />
             </Form.Group>
           </Form>
