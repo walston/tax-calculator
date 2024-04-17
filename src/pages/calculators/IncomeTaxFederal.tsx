@@ -27,10 +27,6 @@ const IncomeTaxFederal = () => {
       <h2>2024</h2>
       <p className="fst-italic">Disclaimer: This provides a basic tax estimation, and is not to be used as a substitute
         for a tax professional.</p>
-
-      <pre>
-        {JSON.stringify(formData, null, 2)}
-      </pre>
       <div className="row">
         <div className="col-12 col-lg-6">
           <Form>
