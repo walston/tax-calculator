@@ -5,12 +5,14 @@ import FederalTaxResults from '../../components/FederalTaxResults.tsx'
 export interface FederalIncomeTaxForm {
   income: string
   deductions: string
+  four01k: string
 }
 
 const IncomeTaxFederal = () => {
   const [formData, setFormData] = useState<FederalIncomeTaxForm>({
     income: '',
-    deductions: ''
+    deductions: '',
+    four01k: ''
   })
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -48,6 +50,17 @@ const IncomeTaxFederal = () => {
                 value={formData.deductions}
                 onChange={handleInputChange}
               />
+              <small className="fst-italic text-muted">The standard deduction for single filers in 2024 is $14,600.00</small>
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="incomeTax.four01k">
+              <Form.Label>401k contributions</Form.Label>
+              <Form.Control
+                type="text"
+                name="four01k"
+                value={formData.four01k}
+                onChange={handleInputChange}
+              />
+              <small className="fst-italic text-muted">The maximum 401k contribution for 2024 is $23,000.00</small>
             </Form.Group>
             <Form.Group className="mb-3" controlId="incomeTax.filingStatus">
               <Form.Label>Filing status</Form.Label><br/>
