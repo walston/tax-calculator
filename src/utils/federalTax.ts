@@ -1,8 +1,4 @@
-export interface TaxOwed {
-  total: number
-}
-
-interface TaxBracket {
+interface FederalTaxBracket {
   min: number
   taxRate: number
   taxableIncomeBracket: string
@@ -23,7 +19,7 @@ export const calculateFederalTax = (income: number): number => {
   let tax = 0
 
   for (let x = 0; x < taxBracketsSingle2024.length; x++) {
-    const bracket: TaxBracket = taxBracketsSingle2024[x]
+    const bracket: FederalTaxBracket = taxBracketsSingle2024[x]
     const baseTax: number = bracket.baseTax
 
     if (income > bracket.min) {
@@ -48,7 +44,7 @@ export const calculateMedicareTax = (income: number): MedicareTax => {
   }
 }
 
-export const taxBracketsSingle2023: TaxBracket[] = [
+export const taxBracketsSingle2023: FederalTaxBracket[] = [
   {
     "min": 0,
     "taxRate": 0.10,
@@ -102,7 +98,7 @@ export const taxBracketsSingle2023: TaxBracket[] = [
 
 
 // Define federal income tax brackets for single filers
-const taxBracketsSingle2024: TaxBracket[] = [
+const taxBracketsSingle2024: FederalTaxBracket[] = [
   {
     "min": 0,
     "taxRate": 0.10,
