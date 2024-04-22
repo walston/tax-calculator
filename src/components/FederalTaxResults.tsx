@@ -20,8 +20,8 @@ const FederalTaxResults = (props: FederalIncomeTaxFormProps) => {
 
   // calculate social security
   const OASDI_MAX = 168600
-  // const MEDICARE_THRESHHOLD = 200000
-  const socSecurity = incomeAsNumber > OASDI_MAX ?  OASDI_MAX * .062 : incomeAsNumber * .062
+  const OASDI_TAX = .062
+  const socSecurity = incomeAsNumber > OASDI_MAX ?  OASDI_MAX * OASDI_TAX : incomeAsNumber * OASDI_TAX
   const medicare = calculateMedicareTax(incomeAsNumber)
   const net = incomeAsNumber - federalIncomeTax - socSecurity - medicare.totalMedicare
 
@@ -73,7 +73,7 @@ const FederalTaxResults = (props: FederalIncomeTaxFormProps) => {
           {medicare.additionalMedicare > 0 &&
             <tr>
               <td className="text-danger">Additional Medicare (0.9%)<sup>1</sup>:</td>
-              <td className="text-danger text-end">${medicare.additionalMedicare.toFixed(2)}</td>
+              <td className="text-danger text-end">{numericFormatter((medicare.additionalMedicare).toFixed(2).toString(), {decimalScale: 2, fixedDecimalScale: true, prefix: '$', thousandSeparator: ','})}</td>
             </tr>
           }
           <tr>

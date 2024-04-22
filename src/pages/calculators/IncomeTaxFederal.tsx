@@ -64,13 +64,14 @@ const IncomeTaxFederal = () => {
                 name="income"
                 prefix={'$'}
                 allowNegative={false}
+                thousandSeparator=","
                 value={formData.income}
                 onChange={handleInputChange}
                 maxLength={15}
                 spellCheck={false}
                 autoComplete="off"
                 autoCorrect="off"
-                thousandSeparator=","
+                placeholder="$"
                 autoFocus={true}
               />
             </Form.Group>
@@ -82,13 +83,14 @@ const IncomeTaxFederal = () => {
                 name="deductions"
                 prefix={'$'}
                 allowNegative={false}
+                thousandSeparator=","
                 value={formData.deductions}
                 onChange={handleInputChange}
                 maxLength={15}
                 spellCheck={false}
                 autoComplete="off"
                 autoCorrect="off"
-                thousandSeparator=","
+                placeholder="$"
               />
               <small className="fst-italic text-muted">The standard deduction for single filers in 2024 is $14,600.00</small>
             </Form.Group>
@@ -100,13 +102,14 @@ const IncomeTaxFederal = () => {
                 name="retirementPretax"
                 prefix={'$'}
                 allowNegative={false}
+                thousandSeparator=","
                 value={formData.retirementPretax}
                 onChange={handleInputChange}
                 maxLength={15}
                 spellCheck={false}
                 autoComplete="off"
                 autoCorrect="off"
-                thousandSeparator=","
+                placeholder="$"
               />
               <small className="fst-italic text-muted">The maximum 401k contribution for 2024 is $23,000.00</small>
             </Form.Group>
