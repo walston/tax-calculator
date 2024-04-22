@@ -1,22 +1,3 @@
-// Define a function to calculate federal tax
-export const calculateFederalTax = (income: number): number => {
-  if (income < 0) {
-    return 0
-  }
-  let tax = 0;
-
-  for (let x = 0; x < taxBracketsSingle2024.length; x++) {
-    const bracket: TaxBracket = taxBracketsSingle2024[x]
-    const baseTax: number = bracket.baseTax
-
-    if (income > bracket.min) {
-      tax = baseTax + ((income - bracket.min) * bracket.taxRate)
-    }
-  }
-
-  return tax;
-};
-
 export interface TaxOwed {
   total: number
 }
@@ -27,6 +8,44 @@ interface TaxBracket {
   taxableIncomeBracket: string
   taxOwed: string
   baseTax: number
+}
+
+export interface MedicareTax {
+  medicare: number
+  additionalMedicare: number
+  totalMedicare: number
+}
+
+export const calculateFederalTax = (income: number): number => {
+  if (income < 0) {
+    return 0
+  }
+  let tax = 0
+
+  for (let x = 0; x < taxBracketsSingle2024.length; x++) {
+    const bracket: TaxBracket = taxBracketsSingle2024[x]
+    const baseTax: number = bracket.baseTax
+
+    if (income > bracket.min) {
+      tax = baseTax + ((income - bracket.min) * bracket.taxRate)
+    }
+  }
+
+  return tax
+}
+
+export const calculateMedicareTax = (income: number): MedicareTax => {
+  const MEDICARE_THRESHHOLD = 200000
+  const ADDITIONAL_MEDICARE_TAX = .009
+  const additionalMedicare = (income - MEDICARE_THRESHHOLD) * ADDITIONAL_MEDICARE_TAX
+  const medicare = income * .0145
+  const totalMedicare = medicare + additionalMedicare > 0 ? additionalMedicare : 0
+
+  return {
+    medicare,
+    additionalMedicare,
+    totalMedicare
+  }
 }
 
 export const taxBracketsSingle2023: TaxBracket[] = [

@@ -1,18 +1,19 @@
 import {Form} from 'react-bootstrap'
 import {useState} from 'react'
 import FederalTaxResults from '../../components/FederalTaxResults.tsx'
+import {NumericFormat} from 'react-number-format'
 
 export interface FederalIncomeTaxForm {
   income: string
   deductions: string
-  four01k: string
+  retirementPretax: string
 }
 
 const IncomeTaxFederal = () => {
   const [formData, setFormData] = useState<FederalIncomeTaxForm>({
     income: '',
     deductions: '',
-    four01k: ''
+    retirementPretax: ''
   })
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -33,47 +34,7 @@ const IncomeTaxFederal = () => {
         <div className="col-12 col-lg-6">
           <Form>
             <legend>Income information</legend>
-            <Form.Group className="mb-3" controlId="incomeTax.income">
-              <Form.Label>Annual income</Form.Label>
-              <Form.Control
-                type="text"
-                name="income"
-                value={formData.income}
-                onChange={handleInputChange}
-                maxLength={10}
-                spellCheck={false}
-                autoComplete="off"
-                autoCorrect="off"
-              />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="incomeTax.deductions">
-              <Form.Label>Deductions</Form.Label>
-              <Form.Control
-                type="text"
-                name="deductions"
-                value={formData.deductions}
-                onChange={handleInputChange}
-                maxLength={10}
-                spellCheck={false}
-                autoComplete="off"
-                autoCorrect="off"
-              />
-              <small className="fst-italic text-muted">The standard deduction for single filers in 2024 is $14,600.00</small>
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="incomeTax.four01k">
-              <Form.Label>401k contributions</Form.Label>
-              <Form.Control
-                type="text"
-                name="four01k"
-                value={formData.four01k}
-                onChange={handleInputChange}
-                maxLength={10}
-                spellCheck={false}
-                autoComplete="off"
-                autoCorrect="off"
-              />
-              <small className="fst-italic text-muted">The maximum 401k contribution for 2024 is $23,000.00</small>
-            </Form.Group>
+
             <Form.Group className="mb-3" controlId="incomeTax.filingStatus">
               <Form.Label>Filing status</Form.Label><br/>
               <Form.Check
@@ -94,6 +55,60 @@ const IncomeTaxFederal = () => {
                 disabled={true}
                 onChange={handleInputChange}
               />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="incomeTax.income">
+              <Form.Label>Annual income</Form.Label>
+              <NumericFormat
+                className="form-control"
+                type="text"
+                name="income"
+                prefix={'$'}
+                allowNegative={false}
+                value={formData.income}
+                onChange={handleInputChange}
+                maxLength={15}
+                spellCheck={false}
+                autoComplete="off"
+                autoCorrect="off"
+                thousandSeparator=","
+                autoFocus={true}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="incomeTax.deductions">
+              <Form.Label>Deductions</Form.Label>
+              <NumericFormat
+                className="form-control"
+                type="text"
+                name="deductions"
+                prefix={'$'}
+                allowNegative={false}
+                value={formData.deductions}
+                onChange={handleInputChange}
+                maxLength={15}
+                spellCheck={false}
+                autoComplete="off"
+                autoCorrect="off"
+                thousandSeparator=","
+              />
+              <small className="fst-italic text-muted">The standard deduction for single filers in 2024 is $14,600.00</small>
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="incomeTax.retirementPretax">
+              <Form.Label>401k contributions</Form.Label>
+              <NumericFormat
+                className="form-control"
+                type="text"
+                name="retirementPretax"
+                prefix={'$'}
+                allowNegative={false}
+                value={formData.retirementPretax}
+                onChange={handleInputChange}
+                maxLength={15}
+                spellCheck={false}
+                autoComplete="off"
+                autoCorrect="off"
+                thousandSeparator=","
+              />
+              <small className="fst-italic text-muted">The maximum 401k contribution for 2024 is $23,000.00</small>
             </Form.Group>
           </Form>
         </div>
