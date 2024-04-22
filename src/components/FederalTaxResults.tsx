@@ -1,6 +1,6 @@
 import { calculateFederalTax } from '../utils/federalTax.ts'
 import { FederalIncomeTaxForm} from '../pages/calculators/IncomeTaxFederal.tsx'
-import {NumericFormat} from 'react-number-format'
+import {NumericFormat, numericFormatter} from 'react-number-format'
 
 interface FederalIncomeTaxFormProps {
   form: FederalIncomeTaxForm
@@ -37,7 +37,7 @@ const FederalTaxResults = (props: FederalIncomeTaxFormProps) => {
       <table className="table">
         <tbody>
           <tr>
-            <td className="text-danger">Federal tax ({effectiveIncomeTaxRate * 100}%):</td>
+            <td className="text-danger">Federal tax ({numericFormatter((effectiveIncomeTaxRate * 100).toFixed(2).toString(), {decimalScale: 2, fixedDecimalScale: true, suffix: '%'})}):</td>
             <td className="text-danger text-end">
               <NumericFormat
                 value={federalIncomeTax}

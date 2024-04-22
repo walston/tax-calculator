@@ -26,8 +26,8 @@ const IncomeTaxFederal = () => {
   return (
     <>
       <h1>Federal Income Tax Calculator</h1>
-      <h2>2024</h2>
-      <p className="fst-italic">Disclaimer: This provides a basic tax estimation, and is not to be used as a substitute
+      <h2>Tax year: 2024</h2>
+      <p className="fst-italic">Disclaimer: This provides a basic federal tax estimation, and is not to be used as a substitute
         for a tax professional.</p>
       <div className="row">
         <div className="col-12 col-lg-6">
@@ -40,6 +40,10 @@ const IncomeTaxFederal = () => {
                 name="income"
                 value={formData.income}
                 onChange={handleInputChange}
+                maxLength={10}
+                spellCheck={false}
+                autoComplete="off"
+                autoCorrect="off"
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="incomeTax.deductions">
@@ -49,6 +53,10 @@ const IncomeTaxFederal = () => {
                 name="deductions"
                 value={formData.deductions}
                 onChange={handleInputChange}
+                maxLength={10}
+                spellCheck={false}
+                autoComplete="off"
+                autoCorrect="off"
               />
               <small className="fst-italic text-muted">The standard deduction for single filers in 2024 is $14,600.00</small>
             </Form.Group>
@@ -59,6 +67,10 @@ const IncomeTaxFederal = () => {
                 name="four01k"
                 value={formData.four01k}
                 onChange={handleInputChange}
+                maxLength={10}
+                spellCheck={false}
+                autoComplete="off"
+                autoCorrect="off"
               />
               <small className="fst-italic text-muted">The maximum 401k contribution for 2024 is $23,000.00</small>
             </Form.Group>
