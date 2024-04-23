@@ -16,21 +16,12 @@ jobs:
       - run:
           name: Deploy to GitHub Pages
           command: |
+            sudo npm install -g --silent gh-pages
             git config --global user.email "ratherblue@gmail.com"
             git config --global user.name "ratherblue"
-            sudo npm install -g gh-pages
-            echo "Setting up GitHub Pages"
-            yarn build
-            gh-pages -d build
-  deploy:
-    # This is an example deploy job, not actually used by the workflow
-    docker:
-      - image: cimg/base:stable
-    steps:
-      # Replace this with steps to deploy to users
       - run:
-          name: deploy
-          command: '#e.g. ./deploy.sh'
+          name: Deploy docs to gh-pages branch
+          command: gh-pages --dist dist/
 workflows:
   build:
     jobs:
