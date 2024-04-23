@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Layout from './Layout'
-import IncomeTaxFederal from './pages/calculators/IncomeTaxFederal'
+import FederalIncomeTax from './pages/calculators/FederalIncomeTax.tsx'
 import NoPage from './pages/404'
 
 const App = () => {
@@ -8,7 +8,7 @@ const App = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout/>}>
-          <Route index element={<IncomeTaxFederal/>}/>
+          <Route index element={<FederalIncomeTax/>}/>
           <Route path="*" element={<NoPage/>}/>
         </Route>
       </Routes>

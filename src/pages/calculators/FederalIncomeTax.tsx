@@ -3,7 +3,7 @@ import FederalTaxForm from '../../components/FederalTaxForm.tsx'
 import {useSelector} from 'react-redux'
 import {AppState} from '../../reducers.ts'
 
-const IncomeTaxFederal = () => {
+const FederalIncomeTax = () => {
   const taxForm = useSelector((state: AppState) => state.taxForm)
 
   return (
@@ -25,4 +25,4 @@ const IncomeTaxFederal = () => {
   )
 }
 
-export default IncomeTaxFederal
+export default FederalIncomeTax
