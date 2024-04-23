@@ -21,7 +21,7 @@ jobs:
             git config --global user.name "ratherblue"
       - run:
           name: Deploy docs to gh-pages branch
-          command: gh-pages --dist dist/
+          command: gh-pages --dist dist
 workflows:
   build:
     jobs:
