@@ -5,14 +5,14 @@ import NoPage from './pages/404'
 
 const App = () => {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Layout/>}>
-          <Route index element={<FederalIncomeTax/>}/>
-          <Route path="*" element={<NoPage/>}/>
-        </Route>
-      </Routes>
-    </BrowserRouter>
+<BrowserRouter>
+  <Routes>
+    <Route path="/" element={<Layout/>}>
+      <Route index element={<FederalIncomeTax/>}/>
+    </Route>
+    <Route path="*" element={<NoPage/>}/>
+  </Routes>
+</BrowserRouter>
   )
 }
 
