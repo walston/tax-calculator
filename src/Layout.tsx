@@ -18,7 +18,7 @@ const Layout = () => {
             <li className="nav-item">
               <NavLink
                 to="/federal-income-tax-calculator"
-                className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")}
+                className={({ isActive }) => (isActive ? "active" : "") + " nav-link"}
               >
                 Federal Income Tax
               </NavLink>
