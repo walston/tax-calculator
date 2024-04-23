@@ -45,6 +45,7 @@ const FederalTaxForm = () => {
           id={`inline-radio-2`}
           checked={formData.filingStatus === 'mfj'}
           onChange={handleInputChange}
+          disabled={true}
         />
       </Form.Group>
       <Form.Group className="mb-3" controlId="incomeTax.income">
