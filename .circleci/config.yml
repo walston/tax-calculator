@@ -29,7 +29,3 @@ jobs:
             gh-pages -d build
     requires:
       - build
-    filters:
-      branches:
-        only:
-          - main
