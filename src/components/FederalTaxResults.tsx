@@ -1,11 +1,13 @@
 import {calculateFederalTax, calculateMedicareTax} from '../utils/federalTax.ts'
-import { FederalIncomeTaxForm} from '../pages/calculators/IncomeTaxFederal.tsx'
+import {FederalIncomeTaxForm} from './FederalTaxForm.tsx'
 import {NumericFormat, numericFormatter} from 'react-number-format'
 
 interface FederalIncomeTaxFormProps {
   form: FederalIncomeTaxForm
 }
+
 const FederalTaxResults = (props: FederalIncomeTaxFormProps) => {
+  console.log('props', props)
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   const incomeAsNumber = props.form.income.replace(/[^\d.]/g, '') * 1
