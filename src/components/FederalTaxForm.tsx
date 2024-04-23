@@ -5,10 +5,10 @@ import {updateTaxData} from '../actions.ts'
 import {AppState} from '../reducers.ts'
 
 export interface FederalIncomeTaxForm {
-  filingStatus: string
-  income: string
-  deductions: string
-  retirementPretax: string
+  filingStatus?: string
+  income?: string
+  deductions?: string
+  retirementPretax?: string
 }
 
 const FederalTaxForm = () => {
@@ -16,9 +16,8 @@ const FederalTaxForm = () => {
   const formData = useSelector((state: AppState) => state.taxForm)
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log('handleInputChange', e)
     const { name, value } = e.target
-    dispatch(updateTaxData({ [name]: value }))
+    dispatch(updateTaxData({ [name]: value } as Partial<FederalIncomeTaxForm>))
   }
 
   return (

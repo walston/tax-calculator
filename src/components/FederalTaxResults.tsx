@@ -7,7 +7,6 @@ interface FederalIncomeTaxFormProps {
 }
 
 const FederalTaxResults = (props: FederalIncomeTaxFormProps) => {
-  console.log('props', props)
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   const incomeAsNumber = props.form.income.replace(/[^\d.]/g, '') * 1
@@ -109,7 +108,6 @@ const FederalTaxResults = (props: FederalIncomeTaxFormProps) => {
       {medicare.additionalMedicare > 0 &&
         <p><sup>1</sup> Single filers making over $200,000 pay an additional 0.9% tax towards Medicare.</p>
       }
-      <p className="text-info">Heads up! This does not include state income taxes. Unless you live in Alaska, Florida, Nevada, New Hampshire, South Dakota, Tennessee, Texas, Washington or Wyoming you will owe additional income taxes for your state(s) of residency.</p>
       <p className="text-success">{ incomeAsNumber > OASDI_MAX ? '★ Great news! Your annual income is over the maximum Social Security tax threshold for 2024 of $168,600. Your Social Security tax is capped at $10,453.20.' : ''}</p>
     </>
   )
