@@ -1,5 +1,5 @@
 # Tax Calculator (WIP)
+[![CircleCI](https://dl.circleci.com/status-badge/img/circleci/No7RP2WrZHJh7kdEx4q3sK/8fDw8rLaAVCks3GHgDwnFv/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/circleci/No7RP2WrZHJh7kdEx4q3sK/8fDw8rLaAVCks3GHgDwnFv/tree/main)
 
-[![Build Status](https://img.shields.io/travis/ratherblue/tax-calculator.svg?style=flat-square)](https://travis-ci.org/ratherblue/tax-calculator)
 
 Work in progress React+Redux app 
