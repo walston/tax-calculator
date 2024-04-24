@@ -10,21 +10,22 @@ export const OASDI_MAX = 168600
 export const OASDI_TAX = .062
 
 const FederalTaxResults = (props: FederalIncomeTaxFormProps) => {
+  const taxForm = props.form
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
-  const incomeAsNumber = props.form.income.replace(/[^\d.]/g, '') * 1
+  const incomeAsNumber = taxForm.income.replace(/[^\d.]/g, '') * 1
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
-  const deductionsAsNumber = props.form.deductions.replace(/[^\d.]/g, '') * 1
+  const deductionsAsNumber = taxForm.deductions.replace(/[^\d.]/g, '') * 1
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
-  const retirementPretaxAsNumber = props.form.retirementPretax.replace(/[^\d.]/g, '') * 1
+  const retirementPretaxAsNumber = taxForm.retirementPretax.replace(/[^\d.]/g, '') * 1
   const taxableIncome = incomeAsNumber - deductionsAsNumber - retirementPretaxAsNumber
-  const federalIncomeTax = calculateFederalTax(taxableIncome)
+  const federalIncomeTax = calculateFederalTax(taxableIncome, taxForm.filingStatus)
 
   // calculate social security
   const socSecurity = incomeAsNumber > OASDI_MAX ?  OASDI_MAX * OASDI_TAX : incomeAsNumber * OASDI_TAX
-  const medicare = calculateMedicareTax(incomeAsNumber)
+  const medicare = calculateMedicareTax(incomeAsNumber, taxForm.filingStatus)
   const net = incomeAsNumber - federalIncomeTax - socSecurity - medicare.totalMedicare
 
   const effectiveIncomeTaxRate = incomeAsNumber > 0 ? federalIncomeTax/taxableIncome : 0

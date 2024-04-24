@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {NumericFormat} from 'react-number-format'
 import {updateTaxData} from '../actions.ts'
 import {AppState} from '../reducers.ts'
+import {federalTax} from '../utils/federalTax.ts'
 
 export interface FederalIncomeTaxForm {
   filingStatus?: string
@@ -44,7 +45,6 @@ const FederalTaxForm = () => {
           id={`inline-radio-2`}
           checked={formData.filingStatus === 'mfj'}
           onChange={handleInputChange}
-          disabled={true}
         />
       </Form.Group>
       <Form.Group className="mb-3" controlId="incomeTax.income">
@@ -86,7 +86,12 @@ const FederalTaxForm = () => {
           placeholder="$"
         />
         <small className="fst-italic text-muted">
-          The standard deduction for single filers in 2024 is $14,600.00
+          {formData.filingStatus === 'single' &&
+            `The standard deduction for single filers in 2024 is ${federalTax.single.standardDeduction}`
+          }
+          {formData.filingStatus === 'mfj' &&
+            `The standard deduction for MFJ filers in 2024 is ${federalTax.mfj.standardDeduction}`
+          }
         </small>
       </Form.Group>
       <Form.Group className="mb-3" controlId="incomeTax.retirementPretax">
