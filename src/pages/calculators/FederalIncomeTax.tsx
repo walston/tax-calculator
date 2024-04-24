@@ -17,7 +17,7 @@ const FederalIncomeTax = () => {
           <FederalTaxForm  />
         </div>
         <div className="col-12 col-md-6">
-          <h5 className="mb-3">Tax breakdown</h5>
+          <h5 className="mb-2">Tax breakdown</h5>
           <FederalTaxResults form={taxForm}/>
         </div>
       </div>
