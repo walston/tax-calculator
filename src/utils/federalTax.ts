@@ -12,6 +12,9 @@ export interface MedicareTax {
   totalMedicare: number
 }
 
+export const MEDICARE_THRESHHOLD = 200000
+export const ADDITIONAL_MEDICARE_TAX = .009
+export const MEDICARE_TAX = .0145
 export const calculateFederalTax = (income: number): number => {
   if (income < 0) {
     return 0
@@ -31,10 +34,8 @@ export const calculateFederalTax = (income: number): number => {
 }
 
 export const calculateMedicareTax = (income: number): MedicareTax => {
-  const MEDICARE_THRESHHOLD = 200000
-  const ADDITIONAL_MEDICARE_TAX = .009
   const additionalMedicare = (income - MEDICARE_THRESHHOLD) * ADDITIONAL_MEDICARE_TAX
-  const medicare = income * .0145
+  const medicare = income * MEDICARE_TAX
   const totalMedicare = medicare + additionalMedicare > 0 ? additionalMedicare : 0
 
   return {

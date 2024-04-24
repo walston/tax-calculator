@@ -8,16 +8,16 @@ const FederalIncomeTax = () => {
 
   return (
     <>
-      <h1>2024 Federal Income Tax Calculator</h1>
-      <p className="fst-italic mb-0">Disclaimer: This provides a basic federal tax estimation, and is not to be used as a substitute
+      <h1 className="text-center">2024 Federal Income Tax Calculator</h1>
+      <p className="fst-italic text-center">Disclaimer: This provides a basic federal tax estimation, and is not to be used as a substitute
         for a tax professional.</p>
-      <p className="fst-italic">Disclaimer: This does not include state income taxes. Unless you live in Alaska, Florida, Nevada, New Hampshire, South Dakota, Tennessee, Texas, Washington or Wyoming you will owe additional income taxes for your state(s) of residency.</p>
-      <div className="row">
-        <div className="col-12 col-lg-6">
+      <hr/>
+      <div className="row pt-2">
+        <div className="col-12 col-md-6">
           <FederalTaxForm  />
         </div>
-        <div className="col-12 col-lg-6">
-          <h3>Tax breakdown</h3>
+        <div className="col-12 col-md-6">
+          <h5 className="mb-3">Tax breakdown</h5>
           <FederalTaxResults form={taxForm}/>
         </div>
       </div>

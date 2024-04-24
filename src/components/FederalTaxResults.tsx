@@ -1,10 +1,13 @@
-import {calculateFederalTax, calculateMedicareTax} from '../utils/federalTax.ts'
+import {ADDITIONAL_MEDICARE_TAX, calculateFederalTax, calculateMedicareTax, MEDICARE_TAX} from '../utils/federalTax.ts'
 import {FederalIncomeTaxForm} from './FederalTaxForm.tsx'
 import {NumericFormat, numericFormatter} from 'react-number-format'
 
 interface FederalIncomeTaxFormProps {
   form: FederalIncomeTaxForm
 }
+
+export const OASDI_MAX = 168600
+export const OASDI_TAX = .062
 
 const FederalTaxResults = (props: FederalIncomeTaxFormProps) => {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -20,8 +23,6 @@ const FederalTaxResults = (props: FederalIncomeTaxFormProps) => {
   const federalIncomeTax = calculateFederalTax(taxableIncome)
 
   // calculate social security
-  const OASDI_MAX = 168600
-  const OASDI_TAX = .062
   const socSecurity = incomeAsNumber > OASDI_MAX ?  OASDI_MAX * OASDI_TAX : incomeAsNumber * OASDI_TAX
   const medicare = calculateMedicareTax(incomeAsNumber)
   const net = incomeAsNumber - federalIncomeTax - socSecurity - medicare.totalMedicare
@@ -46,11 +47,11 @@ const FederalTaxResults = (props: FederalIncomeTaxFormProps) => {
             </td>
           </tr>
           <tr>
-            <td className="text-danger">Social security (6.20%):</td>
-            <td className="text-danger text-end">
+            <td className="text-danger">Social security ({(OASDI_TAX * 100).toFixed(2)}%){incomeAsNumber > OASDI_MAX && <sup>1</sup>}:</td>
+              <td className="text-danger text-end">
               <NumericFormat
-                value={socSecurity}
-                displayType={'text'}
+              value={socSecurity}
+              displayType={'text'}
                 thousandSeparator={true}
                 prefix={'$'}
                 decimalScale={2}
@@ -59,7 +60,7 @@ const FederalTaxResults = (props: FederalIncomeTaxFormProps) => {
             </td>
           </tr>
           <tr>
-            <td className="text-danger">Medicare (1.45%):</td>
+            <td className="text-danger">Medicare ({(MEDICARE_TAX * 100).toFixed(2)}%):</td>
             <td className="text-danger text-end">
               <NumericFormat
                 value={medicare.medicare}
@@ -73,12 +74,12 @@ const FederalTaxResults = (props: FederalIncomeTaxFormProps) => {
           </tr>
           {medicare.additionalMedicare > 0 &&
             <tr>
-              <td className="text-danger">Additional Medicare (0.9%)<sup>1</sup>:</td>
+              <td className="text-danger">Additional Medicare ({(ADDITIONAL_MEDICARE_TAX * 100).toFixed(2)}%)<sup>☨</sup>:</td>
               <td className="text-danger text-end">{numericFormatter((medicare.additionalMedicare).toFixed(2).toString(), {decimalScale: 2, fixedDecimalScale: true, prefix: '$', thousandSeparator: ','})}</td>
             </tr>
           }
           <tr>
-            <td className="text-success">Net (Take home pay):</td>
+            <td className="text-success">Net (Take home pay)<sup>*</sup>:</td>
             <td className="text-success text-end">
               <NumericFormat
                 value={net}
@@ -105,10 +106,14 @@ const FederalTaxResults = (props: FederalIncomeTaxFormProps) => {
           </tr>
         </tbody>
       </table>
-      {medicare.additionalMedicare > 0 &&
-        <p><sup>1</sup> Single filers making over $200,000 pay an additional 0.9% tax towards Medicare.</p>
+      {incomeAsNumber > OASDI_MAX &&
+        <p className="small"><sup>1</sup> Great news! Your annual income is over the maximum Social Security tax threshold for 2024 of $168,600. Your Social Security tax is capped at $10,453.20.</p>
       }
-      <p className="text-success">{ incomeAsNumber > OASDI_MAX ? '★ Great news! Your annual income is over the maximum Social Security tax threshold for 2024 of $168,600. Your Social Security tax is capped at $10,453.20.' : ''}</p>
+      {medicare.additionalMedicare > 0 &&
+        <p className="small"><sup>☨</sup> Single filers making over $200,000 pay an additional {(ADDITIONAL_MEDICARE_TAX * 100).toFixed(2)}% tax towards
+          Medicare on earnings above $200,000.</p>
+      }
+      <p className="small"><sup>*</sup> This does not include state income taxes. Unless you live in Alaska, Florida, Nevada, New Hampshire, South Dakota, Tennessee, Texas, Washington or Wyoming you will owe additional income taxes for your state(s) of residency.</p>
     </>
   )
 }

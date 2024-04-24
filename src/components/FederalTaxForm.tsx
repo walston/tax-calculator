@@ -22,8 +22,7 @@ const FederalTaxForm = () => {
 
   return (
     <Form>
-      <legend>Income information</legend>
-
+      <legend className="h5 mb-3">Income information</legend>
       <Form.Group className="mb-3" controlId="incomeTax.filingStatus">
         <Form.Label>Filing status</Form.Label><br/>
         <Form.Check
@@ -51,6 +50,7 @@ const FederalTaxForm = () => {
       <Form.Group className="mb-3" controlId="incomeTax.income">
         <Form.Label>Annual income</Form.Label>
         <NumericFormat
+          id="incomeTax.income"
           className="form-control"
           type="text"
           name="income"
@@ -70,6 +70,7 @@ const FederalTaxForm = () => {
       <Form.Group className="mb-3" controlId="incomeTax.deductions">
         <Form.Label>Deductions</Form.Label>
         <NumericFormat
+          id="incomeTax.deductions"
           className="form-control"
           type="text"
           name="deductions"
@@ -91,6 +92,7 @@ const FederalTaxForm = () => {
       <Form.Group className="mb-3" controlId="incomeTax.retirementPretax">
         <Form.Label>401k contributions</Form.Label>
         <NumericFormat
+          id="incomeTax.retirementPretax"
           className="form-control"
           type="text"
           name="retirementPretax"
@@ -104,7 +106,11 @@ const FederalTaxForm = () => {
           autoComplete="off"
           autoCorrect="off"
           placeholder="$"
+          required={true}
         />
+        <Form.Control.Feedback type="invalid">
+          Please choose a username.
+        </Form.Control.Feedback>
         <small className="fst-italic text-muted">The maximum 401k contribution for 2024 is $23,000.00</small>
       </Form.Group>
     </Form>
