@@ -26,9 +26,9 @@ const FederalTaxResults = (props: FederalIncomeTaxFormProps) => {
   // calculate social security
   const socSecurity = incomeAsNumber > OASDI_MAX ?  OASDI_MAX * OASDI_TAX : incomeAsNumber * OASDI_TAX
   const medicare = calculateMedicareTax(incomeAsNumber, taxForm.filingStatus)
-  const net = incomeAsNumber - federalIncomeTax - socSecurity - medicare.totalMedicare
+  const net = incomeAsNumber - federalIncomeTax - socSecurity - medicare.totalMedicare - retirementPretaxAsNumber
 
-  const effectiveIncomeTaxRate = incomeAsNumber > 0 ? federalIncomeTax/taxableIncome : 0
+  const effectiveIncomeTaxRate = incomeAsNumber > 0 && taxableIncome > 0 ? federalIncomeTax/taxableIncome : 0
 
   return (
     <>

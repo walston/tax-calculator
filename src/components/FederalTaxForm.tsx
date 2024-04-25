@@ -3,15 +3,14 @@ import {useDispatch, useSelector} from 'react-redux';
 import {NumericFormat} from 'react-number-format'
 import {updateTaxData} from '../actions.ts'
 import {AppState} from '../reducers.ts'
-import {federalTax} from '../utils/federalTax.ts'
 import React from 'react'
 
 export interface FederalIncomeTaxForm {
-  useStandardDeduction?: boolean
-  filingStatus?: string
-  income?: string
-  deductions?: string
-  retirementPretax?: string
+  useStandardDeduction: boolean
+  filingStatus: string
+  income: string
+  deductions: string
+  retirementPretax: string
 }
 
 const FederalTaxForm = () => {
@@ -21,44 +20,15 @@ const FederalTaxForm = () => {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, checked } = e.target
     const newValue = name === 'useStandardDeduction' ? checked : value
-    dispatch(updateTaxData({ [name]: newValue } as Partial<FederalIncomeTaxForm>))
-
-    console.log('formData.filingStatus', formData.filingStatus)
-
-    if (name === 'useStandardDeduction' && value) {
-      const deductions = formData.filingStatus === 'single' ? federalTax.single.standardDeduction.toString() : federalTax.mfj.standardDeduction.toString()
-      dispatch(updateTaxData({ ['deductions']: deductions } as Partial<FederalIncomeTaxForm>))
-    }
-
-    if (name === 'filingStatus' && formData.useStandardDeduction) {
-      const deductions = value === 'single' ? federalTax.single.standardDeduction.toString() : federalTax.mfj.standardDeduction.toString()
-      dispatch(updateTaxData({ ['deductions']: deductions } as Partial<FederalIncomeTaxForm>))
-    }
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
+    dispatch(updateTaxData({ [name]: newValue }))
   }
-
-  // const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const { name, value, checked } = e.target
-  //   const newValue = name === 'useStandardDeduction' ? checked : value
-  //
-  //   dispatch(updateTaxData({ [name]: newValue } as Partial<FederalIncomeTaxForm>))
-  //
-  //   if (name === 'useStandardDeduction' || name === 'filingStatus') {
-  //     updateStandardDeduction()
-  //   }
-  // }
-  //
-  // const updateStandardDeduction = () => {
-  //   const deductions =
-  //     formData.useStandardDeduction && formData.filingStatus === 'single'
-  //       ? federalTax.single.standardDeduction.toString()
-  //       : federalTax.mfj.standardDeduction.toString()
-  //
-  //   dispatch(updateTaxData({ ['deductions']: deductions } as Partial<FederalIncomeTaxForm>))
-  // }
 
   return (
     <Form>
       <legend className="h5 mb-3">Income information</legend>
+      <pre>{JSON.stringify(formData, null, 2)}</pre>
       <Form.Group className="mb-3" controlId="incomeTax.filingStatus">
         <Form.Label>Filing status</Form.Label><br/>
         <Form.Check

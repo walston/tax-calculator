@@ -5,7 +5,7 @@ import NoPage from './pages/404'
 
 const App = () => {
   return (
-    <BrowserRouter>
+    <BrowserRouter>`
       <Routes>
         <Route path="tax-calculator/" element={<Layout/>}>
           <Route index element={<FederalIncomeTax/>}/>
