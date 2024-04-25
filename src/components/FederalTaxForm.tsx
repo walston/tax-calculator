@@ -4,6 +4,7 @@ import {NumericFormat} from 'react-number-format'
 import {updateTaxData} from '../actions.ts'
 import {AppState} from '../reducers.ts'
 import {federalTax} from '../utils/federalTax.ts'
+import React from 'react'
 
 export interface FederalIncomeTaxForm {
   useStandardDeduction?: boolean
@@ -18,13 +19,11 @@ const FederalTaxForm = () => {
   const formData = useSelector((state: AppState) => state.taxForm)
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const element = e.target
-    const name = element.name
-    let value: string | boolean = element.value
-    if (name === 'useStandardDeduction') {
-      value = element.checked
-    }
-    dispatch(updateTaxData({ [name]: value } as Partial<FederalIncomeTaxForm>))
+    const { name, value, checked } = e.target
+    const newValue = name === 'useStandardDeduction' ? checked : value
+    dispatch(updateTaxData({ [name]: newValue } as Partial<FederalIncomeTaxForm>))
+
+    console.log('formData.filingStatus', formData.filingStatus)
 
     if (name === 'useStandardDeduction' && value) {
       const deductions = formData.filingStatus === 'single' ? federalTax.single.standardDeduction.toString() : federalTax.mfj.standardDeduction.toString()
@@ -36,6 +35,26 @@ const FederalTaxForm = () => {
       dispatch(updateTaxData({ ['deductions']: deductions } as Partial<FederalIncomeTaxForm>))
     }
   }
+
+  // const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const { name, value, checked } = e.target
+  //   const newValue = name === 'useStandardDeduction' ? checked : value
+  //
+  //   dispatch(updateTaxData({ [name]: newValue } as Partial<FederalIncomeTaxForm>))
+  //
+  //   if (name === 'useStandardDeduction' || name === 'filingStatus') {
+  //     updateStandardDeduction()
+  //   }
+  // }
+  //
+  // const updateStandardDeduction = () => {
+  //   const deductions =
+  //     formData.useStandardDeduction && formData.filingStatus === 'single'
+  //       ? federalTax.single.standardDeduction.toString()
+  //       : federalTax.mfj.standardDeduction.toString()
+  //
+  //   dispatch(updateTaxData({ ['deductions']: deductions } as Partial<FederalIncomeTaxForm>))
+  // }
 
   return (
     <Form>
@@ -130,9 +149,6 @@ const FederalTaxForm = () => {
           placeholder="$"
           required={true}
         />
-        <Form.Control.Feedback type="invalid">
-          Please choose a username.
-        </Form.Control.Feedback>
         <small className="fst-italic text-muted">The maximum 401k contribution for 2024 is $23,000.00 per individual.</small>
       </Form.Group>
     </Form>
