@@ -28,7 +28,6 @@ const FederalTaxForm = () => {
   return (
     <Form>
       <legend className="h5 mb-3">Income information</legend>
-      <pre>{JSON.stringify(formData, null, 2)}</pre>
       <Form.Group className="mb-3" controlId="incomeTax.filingStatus">
         <Form.Label>Filing status</Form.Label><br/>
         <Form.Check
