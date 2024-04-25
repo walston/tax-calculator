@@ -9,8 +9,9 @@ const initialState = {
   taxForm: {
     filingStatus: 'single',
     income: '',
-    deductions: '',
-    retirementPretax: ''
+    deductions: '14600',
+    retirementPretax: '',
+    useStandardDeduction: true
   }
 }
 interface UpdateTaxDataAction extends Action {

@@ -6,6 +6,7 @@ import {AppState} from '../reducers.ts'
 import {federalTax} from '../utils/federalTax.ts'
 
 export interface FederalIncomeTaxForm {
+  useStandardDeduction?: boolean
   filingStatus?: string
   income?: string
   deductions?: string
@@ -17,8 +18,23 @@ const FederalTaxForm = () => {
   const formData = useSelector((state: AppState) => state.taxForm)
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target
+    const element = e.target
+    const name = element.name
+    let value: string | boolean = element.value
+    if (name === 'useStandardDeduction') {
+      value = element.checked
+    }
     dispatch(updateTaxData({ [name]: value } as Partial<FederalIncomeTaxForm>))
+
+    if (name === 'useStandardDeduction' && value) {
+      const deductions = formData.filingStatus === 'single' ? federalTax.single.standardDeduction.toString() : federalTax.mfj.standardDeduction.toString()
+      dispatch(updateTaxData({ ['deductions']: deductions } as Partial<FederalIncomeTaxForm>))
+    }
+
+    if (name === 'filingStatus' && formData.useStandardDeduction) {
+      const deductions = value === 'single' ? federalTax.single.standardDeduction.toString() : federalTax.mfj.standardDeduction.toString()
+      dispatch(updateTaxData({ ['deductions']: deductions } as Partial<FederalIncomeTaxForm>))
+    }
   }
 
   return (
@@ -84,15 +100,16 @@ const FederalTaxForm = () => {
           autoComplete="off"
           autoCorrect="off"
           placeholder="$"
+          disabled={formData.useStandardDeduction === true}
         />
-        <small className="fst-italic text-muted">
-          {formData.filingStatus === 'single' &&
-            `The standard deduction for single filers in 2024 is ${federalTax.single.standardDeduction}`
-          }
-          {formData.filingStatus === 'mfj' &&
-            `The standard deduction for MFJ filers in 2024 is ${federalTax.mfj.standardDeduction}`
-          }
-        </small>
+        <Form.Check
+          inline
+          label="Use standard deduction"
+          name="useStandardDeduction"
+          id="useStandardDeduction"
+          checked={formData.useStandardDeduction}
+          onChange={handleInputChange}
+        />
       </Form.Group>
       <Form.Group className="mb-3" controlId="incomeTax.retirementPretax">
         <Form.Label>401k contributions</Form.Label>
@@ -116,7 +133,7 @@ const FederalTaxForm = () => {
         <Form.Control.Feedback type="invalid">
           Please choose a username.
         </Form.Control.Feedback>
-        <small className="fst-italic text-muted">The maximum 401k contribution for 2024 is $23,000.00</small>
+        <small className="fst-italic text-muted">The maximum 401k contribution for 2024 is $23,000.00 per individual.</small>
       </Form.Group>
     </Form>
   )
